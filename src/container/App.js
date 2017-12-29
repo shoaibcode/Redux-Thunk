@@ -5,21 +5,20 @@ import logo from "../logo.svg";
 import reduxlogo from "../redux.svg";
 import "../App.css";
 
+import * as actions from "../action-creators"
+
 class App extends Component {
+  componentDidMount(){
+    this.props.getPost()
+  }
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <img src={reduxlogo} className="App-logo reduxlogo" alt="logo" />
-          <h2>Welcome to React and Redux Starter Kit </h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/container/App.js</code> and save to
-          reload. <br />
-          <br />
-          <div>Redux Logger and Promise Middleware Enabled</div>
-        </p>
+        <ul>
+          {this.props.posts.map((post, index) => {
+            return <li key={index}>{post.title}</li>
+          })}
+        </ul>
       </div>
     );
   }
@@ -27,8 +26,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    todos: state.todos
+    posts: state.posts
   };
 };
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, actions)(App);

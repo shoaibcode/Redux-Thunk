@@ -1,16 +1,17 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import logger from "redux-logger";
 import promiseMiddleware from "redux-promise-middleware";
+import reduxThunk from "redux-thunk"
 
-import todos from "./todos_reducer.js";
+import posts from "./posts_reducer.js";
 
 //you apply any middleware here
-const createStoreWithMiddleware = applyMiddleware(promiseMiddleware(), logger)(
+const createStoreWithMiddleware = applyMiddleware(reduxThunk, promiseMiddleware(), logger)(
 	createStore
 );
 
 const store = combineReducers({
-	todos: todos
+	posts
 });
 
 export default createStoreWithMiddleware(
